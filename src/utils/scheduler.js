@@ -2,7 +2,8 @@ import { getDaysInMonthByYear, MONTH } from "./dates";
 
 export const TURNS = Object.freeze({
   MORNING: 0,
-  EVENING: 1
+  EVENING: 1,
+  FREE: 2
 });
 
 export default class Scheduler {
@@ -20,7 +21,13 @@ export default class Scheduler {
     this.restDays = restDays;
   }
 
-  getDay(day, month = new Date().getMonth(), year = new Date().getFullYear()) {
+  getSchedulerDate = _ => new Date(this.year, this.month, this.day);
+
+  getDay = (
+    day,
+    month = new Date().getMonth(),
+    year = new Date().getFullYear()
+  ) => {
     const startDate = new Date(this.year, this.month, this.day);
     const endDate = new Date(year, month, day);
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
@@ -47,10 +54,10 @@ export default class Scheduler {
         : this.turn === TURNS.MORNING
         ? TURNS.EVENING
         : TURNS.MORNING;
-    const dayInfo = isRestDay ? { day } : { day, turn };
+    const dayInfo = isRestDay ? { day, turn: TURNS.FREE } : { day, turn };
 
     return dayInfo;
-  }
+  };
 
   getDaysSchedulered = (
     day,

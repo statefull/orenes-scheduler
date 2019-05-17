@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Configuration from "./components/Configuration";
-import PrincipalView from "./components/PrincipalView";
+import DayView from "./components/DayView";
+import MonthView from "./components/MonthView";
 import "semantic-ui-css/semantic.min.css";
 import "./style/configuration.css";
 import "./style/calendarView.css";
@@ -24,7 +25,7 @@ function App() {
           configurations={configurations}
         />
       ) : (
-        <PrincipalView
+        <MonthView
           onConfigure={() => setIsConfiguring(true)}
           configurations={configurations}
         />

@@ -10,6 +10,13 @@ export default function CalendarView(props) {
   };
 
   return (
-    <Calendar className="app-center-align" onChange={onChange} value={date} />
+    <Calendar
+      className="app-center-align"
+      onChange={onChange}
+      value={date}
+      activeStartDate={props.startDate}
+      tileClassName={props.tileClassName}
+      view={props.view}
+    />
   );
 }
