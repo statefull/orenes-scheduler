@@ -1,18 +1,14 @@
-import { getDaysInMonthByYear, MONTH } from "./dates";
+import { getDaysInMonthByYear, MONTH } from './dates';
 
 export const TURNS = Object.freeze({
   MORNING: 0,
   EVENING: 1,
-  FREE: 2
+  PARTIAL: 2,
+  FREE: 3,
 });
 
 export default class Scheduler {
-  constructor(
-    date = new Date(),
-    turn = TURNS.MORNING,
-    workDaysUntilBreak = 4,
-    restDays = 2
-  ) {
+  constructor(date = new Date(), turn = TURNS.MORNING, workDaysUntilBreak = 4, restDays = 2) {
     this.day = date.getDate();
     this.month = date.getMonth();
     this.year = date.getFullYear();
@@ -21,13 +17,9 @@ export default class Scheduler {
     this.restDays = restDays;
   }
 
-  getSchedulerDate = _ => new Date(this.year, this.month, this.day);
+  getSchedulerDate = (_) => new Date(this.year, this.month, this.day);
 
-  getDay = (
-    day,
-    month = new Date().getMonth(),
-    year = new Date().getFullYear()
-  ) => {
+  getDay = (day, month = new Date().getMonth(), year = new Date().getFullYear()) => {
     const startDate = new Date(this.year, this.month, this.day);
     const endDate = new Date(year, month, day);
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
@@ -40,30 +32,29 @@ export default class Scheduler {
     const remainPacks = Math.round((packs % 1) * 100) / 100;
     const daysWorked = Math.round(this.workDaysUntilBreak * aDay * 100) / 100;
 
-    const isRestDay =
-      packs % 1 === 0 ? true : remainPacks - daysWorked <= 0 ? false : true;
+    const isRestDay = packs % 1 === 0 ? true : remainPacks - daysWorked <= 0 ? false : true;
 
     //console.log(
     //` aday: ${aDay}, ${remainPacks} ${daysWorked}  ${remainPacks -
     //        daysWorked}`
     //  );
 
+    // if the turn is partial for this scheduler there is no alternate
     const turn =
-      Math.floor(packs) % 2 === 0
+      this.turn === TURNS.PARTIAL
+        ? this.turn
+        : Math.floor(packs) % 2 === 0
         ? this.turn
         : this.turn === TURNS.MORNING
         ? TURNS.EVENING
         : TURNS.MORNING;
+
     const dayInfo = isRestDay ? { day, turn: TURNS.FREE } : { day, turn };
 
     return dayInfo;
   };
 
-  getDaysSchedulered = (
-    day,
-    month = new Date().getMonth(),
-    year = new Date().getFullYear()
-  ) => {
+  getDaysSchedulered = (day, month = new Date().getMonth(), year = new Date().getFullYear()) => {
     const schedule = [];
 
     let actualMonth = this.month;
@@ -74,10 +65,7 @@ export default class Scheduler {
 
     do {
       for (let m = actualMonth; m <= endMonth; m++) {
-        let endDay =
-          month === this.month
-            ? day
-            : getDaysInMonthByYear(this.month, this.year);
+        let endDay = month === this.month ? day : getDaysInMonthByYear(this.month, this.year);
         for (let currentDay = actualDay; currentDay < endDay; currentDay++) {
           schedule.push(this.getDay(currentDay, m, actualYear));
         }

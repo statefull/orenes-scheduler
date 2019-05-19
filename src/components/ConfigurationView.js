@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, Button } from "semantic-ui-react";
-import { TURNS } from "../utils/scheduler";
+import React from 'react';
+import { Card, Button } from 'semantic-ui-react';
+import { TURNS } from '../utils/scheduler';
 
 export default function ConfigurationView(props) {
   const configurations = props.configurations.map((conf, index) => {
@@ -15,14 +15,17 @@ export default function ConfigurationView(props) {
             <p>
               Fecha:
               <strong>
-                {conf.date.getDate()}/{conf.date.getMonth() + 1}/
-                {conf.date.getFullYear()}
+                {conf.date.getDate()}/{conf.date.getMonth() + 1}/{conf.date.getFullYear()}
               </strong>
             </p>
             <p>
               Turno:
               <strong>
-                {conf.turn === TURNS.MORNING ? "mañanas" : "tardes"}
+                {conf.turn === TURNS.MORNING
+                  ? 'mañanas'
+                  : conf.turn === TURNS.EVENING
+                  ? 'tardes'
+                  : 'partido'}
               </strong>
             </p>
             <p>
@@ -37,11 +40,7 @@ export default function ConfigurationView(props) {
         </Card.Content>
         <Card.Content extra>
           <div className="ui two buttons">
-            <Button
-              basic
-              color="red"
-              onClick={() => props.onRemoveConfiguration(index)}
-            >
+            <Button basic color="red" onClick={() => props.onRemoveConfiguration(index)}>
               Eliminar
             </Button>
           </div>

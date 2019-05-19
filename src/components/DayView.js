@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SchedulerManager from '../utils/SchedulerManager';
 import CalendarView from './CalendarView';
+import { TURNS } from '../utils/scheduler';
 import { Button, Grid } from 'semantic-ui-react';
 
 export default function DayView(props) {
@@ -51,7 +52,13 @@ function GetDay(props) {
     <p>
       <span>Day: {props.day.day}</span>
       <span>
-        {props.day.turn === undefined ? 'Descanso' : props.day.turn === 0 ? 'Mañanas' : 'Tardes'}
+        {props.day.turn === TURNS.FREE
+          ? 'Descanso'
+          : props.day.turn === TURNS.MORNING
+          ? 'Mañanas'
+          : props.day.turn === TURNS.EVENING
+          ? 'Tardes'
+          : 'Partido'}
       </span>
     </p>
   );

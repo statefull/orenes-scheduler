@@ -1,8 +1,8 @@
-import React from "react";
-import SchedulerManager from "../utils/SchedulerManager";
-import { TURNS } from "../utils/scheduler";
-import CalendarView from "./CalendarView";
-import { Button, Grid } from "semantic-ui-react";
+import React from 'react';
+import SchedulerManager from '../utils/SchedulerManager';
+import { TURNS } from '../utils/scheduler';
+import CalendarView from './CalendarView';
+import { Button, Grid } from 'semantic-ui-react';
 
 export default function MonthView(props) {
   const schedulerManager = new SchedulerManager(props.configurations);
@@ -11,21 +11,21 @@ export default function MonthView(props) {
     const sch = schedulerManager.getSchedulerForDay(
       date.getDate(),
       date.getMonth(),
-      date.getFullYear()
+      date.getFullYear(),
     );
 
-    const turn = sch
-      ? sch.getDay(date.getDate(), date.getMonth(), date.getFullYear()).turn
-      : null;
+    const turn = sch ? sch.getDay(date.getDate(), date.getMonth(), date.getFullYear()).turn : null;
 
     const className =
       turn === null
-        ? "disabled"
+        ? 'disabled'
         : turn === TURNS.FREE
-        ? "free"
+        ? 'free'
         : turn === TURNS.MORNING
-        ? "morning"
-        : "evening";
+        ? 'morning'
+        : turn === TURNS.EVENING
+        ? 'evening'
+        : 'partial';
 
     return className;
   };

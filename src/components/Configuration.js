@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import CalendarView from "./CalendarView";
-import { Dropdown, Button, Container, Grid } from "semantic-ui-react";
-import { TURNS } from "../utils/scheduler";
-import ConfigurationView from "./ConfigurationView";
+import React, { useState } from 'react';
+import CalendarView from './CalendarView';
+import { Dropdown, Button, Container, Grid } from 'semantic-ui-react';
+import { TURNS } from '../utils/scheduler';
+import ConfigurationView from './ConfigurationView';
 
 export default function Configuration(props) {
   const [dateConf, setDateConf] = useState(new Date());
@@ -10,10 +10,10 @@ export default function Configuration(props) {
   const [restDays, setRestDays] = useState(2);
   const [turnCicle, setTurnCicle] = useState(TURNS.MORNING);
   const [configurations, setConfigurations] = useState(
-    props.configurations ? props.configurations : []
+    props.configurations ? props.configurations : [],
   );
 
-  const onChangeDate = date => setDateConf(date);
+  const onChangeDate = (date) => setDateConf(date);
   const onChangeWorkingDays = ({ value }) => setDaysInCicle(value);
   const onChangeRestDays = ({ value }) => setRestDays(value);
   const onChangeTurn = ({ value }) => setTurnCicle(value);
@@ -24,13 +24,13 @@ export default function Configuration(props) {
       date: dateConf,
       workingDays: daysInCicle,
       restDays: restDays,
-      turn: turnCicle
+      turn: turnCicle,
     });
 
     setConfigurations(confs);
   };
 
-  const onRemoveConfiguration = index => {
+  const onRemoveConfiguration = (index) => {
     const confs = [...configurations];
 
     confs.splice(index, 1);
@@ -42,51 +42,56 @@ export default function Configuration(props) {
     {
       key: 1,
       value: 1,
-      text: 1
+      text: 1,
     },
     {
       key: 2,
       value: 2,
-      text: 2
+      text: 2,
     },
     {
       key: 3,
       value: 3,
-      text: 3
+      text: 3,
     },
     {
       key: 4,
       value: 4,
-      text: 4
+      text: 4,
     },
     {
       key: 5,
       value: 5,
-      text: 5
+      text: 5,
     },
     {
       key: 6,
       value: 6,
-      text: 6
+      text: 6,
     },
     {
       key: 7,
       value: 7,
-      text: 7
-    }
+      text: 7,
+    },
   ];
 
   const turns = [
     {
       key: TURNS.MORNING,
       value: TURNS.MORNING,
-      text: "Mañanas"
+      text: 'Mañanas',
     },
     {
       key: TURNS.EVENING,
       value: TURNS.EVENING,
-      text: "Tardes"
-    }
+      text: 'Tardes',
+    },
+    {
+      key: TURNS.PARTIAL,
+      value: TURNS.PARTIAL,
+      text: 'Partido',
+    },
   ];
 
   return (
@@ -103,9 +108,7 @@ export default function Configuration(props) {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column textAlign="right">
-            ¿Cuántos días laborables tiene el ciclo?
-          </Grid.Column>
+          <Grid.Column textAlign="right">¿Cuántos días laborables tiene el ciclo?</Grid.Column>
           <Grid.Column textAlign="left">
             <Dropdown
               selection
@@ -116,9 +119,7 @@ export default function Configuration(props) {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column textAlign="right">
-            ¿Qué turno tiene el ciclo?
-          </Grid.Column>
+          <Grid.Column textAlign="right">¿Qué turno tiene el ciclo?</Grid.Column>
           <Grid.Column textAlign="left">
             <Dropdown
               selection
@@ -129,9 +130,7 @@ export default function Configuration(props) {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column textAlign="right">
-            ¿Cuántos días festivos tiene el ciclo?
-          </Grid.Column>
+          <Grid.Column textAlign="right">¿Cuántos días festivos tiene el ciclo?</Grid.Column>
           <Grid.Column textAlign="left">
             <Dropdown
               selection
@@ -153,8 +152,7 @@ export default function Configuration(props) {
               secondary
               size="large"
               disabled={!configurations.length}
-              onClick={() => props.onExit(configurations)}
-            >
+              onClick={() => props.onExit(configurations)}>
               Siguiente
             </Button>
           </Grid.Column>

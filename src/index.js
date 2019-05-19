@@ -37,27 +37,21 @@ function App() {
     setIsConfiguring(false);
   };
 
-  return (
-    <>
-      <Email firebase={firebase} onLoginSuccess={(result) => console.log('email', result)} />
-      <Mobile firebase={firebase} />{' '}
-    </>
-  );
   // return (
   //   <>
-  //     {isConfiguring ? (
-  //       <Configuration
-  //         onExit={onExitConfiguring}
-  //         configurations={configurations}
-  //       />
-  //     ) : (
-  //       <MonthView
-  //         onConfigure={() => setIsConfiguring(true)}
-  //         configurations={configurations}
-  //       />
-  //     )}
+  //     <Email firebase={firebase} onLoginSuccess={(result) => console.log('email', result)} />
+  //     <Mobile firebase={firebase} />{' '}
   //   </>
   // );
+  return (
+    <>
+      {isConfiguring ? (
+        <Configuration onExit={onExitConfiguring} configurations={configurations} />
+      ) : (
+        <MonthView onConfigure={() => setIsConfiguring(true)} configurations={configurations} />
+      )}
+    </>
+  );
 }
 
 const rootElement = document.getElementById('root');
