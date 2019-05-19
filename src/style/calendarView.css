@@ -1,19 +1,24 @@
+.ui.label.morning,
 .morning {
   background-color: #4fc3f7;
 }
 
+.ui.label.evening,
 .evening {
   background-color: #ff8a50;
 }
 
+.ui.label.free,
 .free {
   background-color: #76ff03;
 }
 
+.ui.label.partial,
 .partial {
-  background-color: #ee98fb;
+  background-color: #ffd54f;
 }
 
+.ui.label.disabled,
 .disabled {
   background-color: #efefef;
 }

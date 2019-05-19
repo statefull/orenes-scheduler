@@ -28,6 +28,7 @@ export default function Configuration(props) {
     });
 
     setConfigurations(confs);
+    props.onExit(confs);
   };
 
   const onRemoveConfiguration = (index) => {
@@ -36,6 +37,7 @@ export default function Configuration(props) {
     confs.splice(index, 1);
 
     setConfigurations(confs);
+    props.onExit(confs);
   };
 
   const numberOfDays = [
@@ -94,7 +96,7 @@ export default function Configuration(props) {
     },
   ];
 
-  return (
+  const wholeView = (
     <Container textAlign="center">
       <Grid verticalAlign="middle" columns={2}>
         <Grid.Row columns={1}>
@@ -141,19 +143,10 @@ export default function Configuration(props) {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row>
-          <Grid.Column>
-            <Button primary size="large" onClick={onSaveConfiguration}>
+        <Grid.Row columns={1}>
+          <Grid.Column textAlign="center">
+            <Button primary size="massive" onClick={onSaveConfiguration}>
               Añadir
-            </Button>
-          </Grid.Column>
-          <Grid.Column>
-            <Button
-              secondary
-              size="large"
-              disabled={!configurations.length}
-              onClick={() => props.onExit(configurations)}>
-              Siguiente
             </Button>
           </Grid.Column>
         </Grid.Row>
@@ -173,4 +166,17 @@ export default function Configuration(props) {
       </Grid>
     </Container>
   );
+
+  const cicleView = configurations.length ? (
+    <ConfigurationView
+      configurations={configurations}
+      onRemoveConfiguration={onRemoveConfiguration}
+    />
+  ) : (
+    <span>No hay configuración</span>
+  );
+
+  const view = props.view ? cicleView : wholeView;
+
+  return view;
 }

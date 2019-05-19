@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import Configuration from './components/Configuration';
-import DayView from './components/DayView';
-import MonthView from './components/MonthView';
-import Captcha from './components/Captcha';
-import Email from './components/Email';
-import Mobile from './components/Mobile';
+import Login from './components/Login';
+import Logged from './components/Logged';
+import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './style/configuration.css';
 import './style/calendarView.css';
+import './style/login.css';
+import './style/logged.css';
 import './style/app.css';
 
 const firebase = require('firebase');
@@ -29,28 +28,20 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().useDeviceLanguage();
 
 function App() {
-  const [configurations, setConfigurations] = useState([]);
-  const [isConfiguring, setIsConfiguring] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
-  const onExitConfiguring = (confs) => {
-    setConfigurations(confs);
-    setIsConfiguring(false);
+  const onLoginSuccess = (user) => {
+    setIsLogged(true);
   };
 
-  // return (
-  //   <>
-  //     <Email firebase={firebase} onLoginSuccess={(result) => console.log('email', result)} />
-  //     <Mobile firebase={firebase} />{' '}
-  //   </>
-  // );
   return (
-    <>
-      {isConfiguring ? (
-        <Configuration onExit={onExitConfiguring} configurations={configurations} />
+    <Container>
+      {isLogged ? (
+        <Logged firebase={firebase} onLoginSuccess={onLoginSuccess} />
       ) : (
-        <MonthView onConfigure={() => setIsConfiguring(true)} configurations={configurations} />
+        <Login firebase={firebase} onLoginSuccess={onLoginSuccess} />
       )}
-    </>
+    </Container>
   );
 }
 

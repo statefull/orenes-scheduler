@@ -41,15 +41,8 @@ export default function Mobile(props) {
   const checkAccessCode = () => {
     window.confirmationResult
       .confirm(phoneCode)
-      .then(function(result) {
-        // User signed in successfully.
-
-        console.log('VALID', result);
-      })
-      .catch(function(error) {
-        // User couldn't sign in (bad verification code?)
-        console.log('INVALID', error);
-      });
+      .then((result) => props.onLoginSuccess(result))
+      .catch((error) => props.onLoginFail(error));
   };
 
   const saveCode = (code) => setPhoneCode(code);

@@ -7,11 +7,11 @@ export default function Email(props) {
       .auth()
       .signInWithPopup(new props.firebase.auth.GoogleAuthProvider())
       .then((result) => props.onLoginSuccess && props.onLoginSuccess(result))
-      .catch((error) => props.onLoginError && props.onLoginError(error));
+      .catch((error) => props.onLoginError && props.onLoginFail(error));
   };
 
   return (
-    <Button color="google plus" size="massive" onClick={openPopup}>
+    <Button size="massive" color="google plus" onClick={openPopup}>
       <Icon name="google" /> Google
     </Button>
   );
