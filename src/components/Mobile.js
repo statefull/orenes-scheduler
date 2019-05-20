@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Modal, Button, Icon, Input } from 'semantic-ui-react';
 import Captcha from './Captcha';
-import is from 'is_js';
 
 const IS_PHONE_NUMBER = /\+346\d{8}$/;
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Login from './components/Login';
 import Logged from './components/Logged';
+import Database from './utils/database';
+import { parseConfigurations } from './utils/parsers';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './style/configuration.css';
@@ -27,17 +29,37 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.auth().useDeviceLanguage();
 
+const database = new Database(firebase);
+
 function App() {
   const [isLogged, setIsLogged] = useState(false);
+  const [userUid, setUserUid] = useState(null);
+  const [data, setData] = useState([]);
 
-  const onLoginSuccess = (user) => {
-    setIsLogged(true);
+  const onLoginSuccess = ({ user }) => {
+    database
+      .getConfigurationsbyUser(user.uid)
+      .then(({ configs }) => {
+        setData(parseConfigurations(configs));
+        setUserUid(user.uid);
+        setIsLogged(true);
+      })
+      .catch(() => {
+        setUserUid(user.uid);
+        setIsLogged(true);
+      });
   };
 
   return (
     <Container>
       {isLogged ? (
-        <Logged firebase={firebase} onLoginSuccess={onLoginSuccess} />
+        <Logged
+          firebase={firebase}
+          onLoginSuccess={onLoginSuccess}
+          userUid={userUid}
+          data={data}
+          database={database}
+        />
       ) : (
         <Login firebase={firebase} onLoginSuccess={onLoginSuccess} />
       )}

@@ -34,11 +34,6 @@ export default class Scheduler {
 
     const isRestDay = packs % 1 === 0 ? true : remainPacks - daysWorked <= 0 ? false : true;
 
-    //console.log(
-    //` aday: ${aDay}, ${remainPacks} ${daysWorked}  ${remainPacks -
-    //        daysWorked}`
-    //  );
-
     // if the turn is partial for this scheduler there is no alternate
     const turn =
       this.turn === TURNS.PARTIAL

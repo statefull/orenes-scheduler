@@ -4,15 +4,16 @@ import Configuration from './Configuration';
 import MonthView from './MonthView';
 
 export default function Logged(props) {
-  const [configurations, setConfigurations] = useState([]);
+  const [configurations, setConfigurations] = useState(props.data);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const onExitConfiguring = (confs) => {
     setConfigurations(confs);
-    confs.length === 0 && setActiveIndex(0)
+    props.database.setConfigurationsToUser(props.userUid, confs);
+    confs.length === 0 && setActiveIndex(0);
   };
 
-  const handleTabChange = (e, { activeIndex }) => setActiveIndex(activeIndex)
+  const handleTabChange = (e, { activeIndex }) => setActiveIndex(activeIndex);
 
   const panes = [
     {
@@ -46,7 +47,12 @@ export default function Logged(props) {
 
   return (
     <Container fluid className="scheduler-container-logged">
-      <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} activeIndex={activeIndex} onTabChange={handleTabChange} />
+      <Tab
+        menu={{ fluid: true, vertical: true, tabular: true }}
+        panes={panes}
+        activeIndex={activeIndex}
+        onTabChange={handleTabChange}
+      />
     </Container>
   );
 }
