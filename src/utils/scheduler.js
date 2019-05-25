@@ -5,6 +5,7 @@ export const TURNS = Object.freeze({
   EVENING: 1,
   PARTIAL: 2,
   FREE: 3,
+  HOLIDAYS: 4,
 });
 
 export default class Scheduler {
@@ -36,7 +37,7 @@ export default class Scheduler {
 
     // if the turn is partial for this scheduler there is no alternate
     const turn =
-      this.turn === TURNS.PARTIAL
+      this.turn === TURNS.PARTIAL || this.turn === TURNS.HOLIDAYS
         ? this.turn
         : Math.floor(packs) % 2 === 0
         ? this.turn
@@ -44,7 +45,8 @@ export default class Scheduler {
         ? TURNS.EVENING
         : TURNS.MORNING;
 
-    const dayInfo = isRestDay ? { day, turn: TURNS.FREE } : { day, turn };
+    const dayInfo =
+      isRestDay && turn !== TURNS.HOLIDAYS ? { day, turn: TURNS.FREE } : { day, turn };
 
     return dayInfo;
   };

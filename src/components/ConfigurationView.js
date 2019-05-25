@@ -25,7 +25,9 @@ export default function ConfigurationView(props) {
                   ? 'mañanas'
                   : conf.turn === TURNS.EVENING
                   ? 'tardes'
-                  : 'partido'}
+                  : conf.turn === TURNS.PARTIAL
+                  ? 'intermedio'
+                  : 'vacaciones'}
               </strong>
             </p>
             <p>

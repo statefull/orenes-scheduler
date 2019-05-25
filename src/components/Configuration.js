@@ -23,7 +23,7 @@ export default function Configuration(props) {
     confs.push({
       date: dateConf,
       workingDays: daysInCicle,
-      restDays: restDays,
+      restDays: turnCicle === TURNS.HOLIDAYS ? 0 : restDays,
       turn: turnCicle,
     });
 
@@ -94,6 +94,11 @@ export default function Configuration(props) {
       value: TURNS.PARTIAL,
       text: 'Partido',
     },
+    {
+      key: TURNS.HOLIDAYS,
+      value: TURNS.HOLIDAYS,
+      text: 'Vacaciones',
+    },
   ];
 
   const wholeView = (
@@ -110,17 +115,6 @@ export default function Configuration(props) {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column textAlign="right">¿Cuántos días laborables tiene el ciclo?</Grid.Column>
-          <Grid.Column textAlign="left">
-            <Dropdown
-              selection
-              options={numberOfDays}
-              value={daysInCicle}
-              onChange={(evt, data) => onChangeWorkingDays(data)}
-            />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
           <Grid.Column textAlign="right">¿Qué turno tiene el ciclo?</Grid.Column>
           <Grid.Column textAlign="left">
             <Dropdown
@@ -131,17 +125,34 @@ export default function Configuration(props) {
             />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column textAlign="right">¿Cuántos días festivos tiene el ciclo?</Grid.Column>
-          <Grid.Column textAlign="left">
-            <Dropdown
-              selection
-              options={numberOfDays}
-              value={restDays}
-              onChange={(evt, data) => onChangeRestDays(data)}
-            />
-          </Grid.Column>
-        </Grid.Row>
+
+        {turnCicle !== TURNS.HOLIDAYS && (
+          <Grid.Row>
+            <Grid.Column textAlign="right">¿Cuántos días laborables tiene el ciclo?</Grid.Column>
+            <Grid.Column textAlign="left">
+              <Dropdown
+                selection
+                options={numberOfDays}
+                value={daysInCicle}
+                onChange={(evt, data) => onChangeWorkingDays(data)}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        )}
+
+        {turnCicle !== TURNS.HOLIDAYS && (
+          <Grid.Row>
+            <Grid.Column textAlign="right">¿Cuántos días festivos tiene el ciclo?</Grid.Column>
+            <Grid.Column textAlign="left">
+              <Dropdown
+                selection
+                options={numberOfDays}
+                value={restDays}
+                onChange={(evt, data) => onChangeRestDays(data)}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        )}
 
         <Grid.Row columns={1}>
           <Grid.Column textAlign="center">

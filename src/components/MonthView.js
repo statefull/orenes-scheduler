@@ -25,7 +25,9 @@ export default function MonthView(props) {
         ? 'morning'
         : turn === TURNS.EVENING
         ? 'evening'
-        : 'partial';
+        : turn === TURNS.PARTIAL
+        ? 'partial'
+        : 'holiday';
 
     return className;
   };
@@ -47,7 +49,9 @@ export default function MonthView(props) {
           <Label circular className="evening" empty key="evening" />
           Tardes
           <Label circular className="partial" empty key="partial" />
-          Partido
+          Intermedio
+          <Label circular className="holiday" empty key="holidays" />
+          Vacaciones
           <Label circular className="free" empty key="free" />
           Libre
           <Label circular className="disabled" empty key="disabled" />
