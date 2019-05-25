@@ -10,9 +10,5 @@ export default function Email(props) {
       .catch((error) => props.onLoginError && props.onLoginFail(error));
   };
 
-  return (
-    <Button size="massive" color="google plus" onClick={openPopup}>
-      <Icon name="google" /> Google
-    </Button>
-  );
+  return <Button size="massive" color="google plus" onClick={openPopup} icon="google" />;
 }

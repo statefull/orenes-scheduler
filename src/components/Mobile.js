@@ -7,9 +7,9 @@ const IS_PHONE_NUMBER = /\+346\d{8}$/;
 export default function Mobile(props) {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
+  const [phoneCode, setPhoneCode] = useState(null);
   const [isSMSSent, setIsSMSSent] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [phoneCode, setPhoneCode] = useState(null);
 
   const onSignInSubmit = (appVerifier) => {
     props.firebase
@@ -49,11 +49,9 @@ export default function Mobile(props) {
   const onCaptchaValid = (newAppVerifier) => onSignInSubmit(newAppVerifier);
 
   return (
-    <Container>
-      <Button size="massive" onClick={() => setOpenModal(true)}>
-        <Icon name="mobile alternate" />
-        Recibe un código en tú móvil
-      </Button>
+    <container>
+      <Button size="massive" onClick={() => setOpenModal(true)} icon="mobile alternate" />
+
       <Modal dimmer="blurring" closeOnDimmerClick={false} open={openModal} size="tiny">
         <Modal.Header>Select a Photo</Modal.Header>
         <Modal.Content image>
@@ -84,6 +82,6 @@ export default function Mobile(props) {
           </Button>
         </Modal.Actions>
       </Modal>
-    </Container>
+    </container>
   );
 }

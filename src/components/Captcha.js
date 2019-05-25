@@ -18,5 +18,5 @@ export default function Captcha(props) {
     createAppVerifier();
   }, [props.firebase]);
 
-  return <Container id="captcha" textAlign="center" />;
+  return <Container id="captcha" className="scheduler-captcha" textAlign="center" />;
 }
