@@ -47,7 +47,7 @@ function App() {
   };
 
   return (
-    <Container>
+    <>
       {isLogged ? (
         <Logged
           firebase={firebase}
@@ -59,7 +59,7 @@ function App() {
       ) : (
         <Login firebase={firebase} onLoginSuccess={onLoginSuccess} />
       )}
-    </Container>
+    </>
   );
 }
 

@@ -1,8 +1,30 @@
 .scheduler-container-logged {
-  padding-top: 10%;
+  padding-top: 5%;
+
+  &-tabs-menu {
+    .ui.secondary.menu {
+      max-width: 370px;
+      margin: 0 auto;
+      a.item {
+        background-color: @green;
+        border-radius: 0px;
+        font-family: @global-font-muli-bold;
+        color: @white;
+
+        &.active {
+          font-family: @global-font-muli-extrabold;
+          color: @black;
+        }
+
+        &:hover {
+          background-color: @green;
+          color: @black;
+        }
+      }
+    }
+  }
 }
 
 .ui.attached.segment {
   border: 0px;
-  border-left: 1px solid #d4d4d5;
 }

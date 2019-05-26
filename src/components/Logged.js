@@ -46,12 +46,13 @@ export default function Logged(props) {
   }
 
   return (
-    <Container fluid className="scheduler-container-logged">
+    <Container fluid className="scheduler-container-logged" textAlign="center">
       <Tab
-        menu={{ fluid: true, vertical: true, tabular: true }}
+        menu={{ secondary: true }}
         panes={panes}
         activeIndex={activeIndex}
         onTabChange={handleTabChange}
+        className="scheduler-container-logged-tabs-menu"
       />
     </Container>
   );

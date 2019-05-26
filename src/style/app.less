@@ -6,9 +6,57 @@ body,
 body {
   font-size: 16px;
   max-height: 100vh;
-  background-image: url('@{assetsDir}/images/background-login.png');
 }
 
 .app-center-align {
   margin: 0 auto !important;
+}
+
+.app-margin {
+  &-top {
+    &-10 {
+      margin-top: 10px !important;
+    }
+  }
+}
+
+.ui.labeled.input,
+.ui.input {
+  .label {
+    border-radius: 0px;
+    border: 1px solid @green;
+    background-color: @black;
+    color: @white;
+  }
+
+  input {
+    max-width: 250px;
+    border-radius: 0px;
+    font-family: @global-font-muli-bold;
+    font-size: 1em;
+
+    &:active,
+    &:focus {
+      border: 2px solid @green !important;
+    }
+  }
+}
+
+.ui.button {
+  border-radius: 0px;
+  margin: 0px;
+  &.primary {
+    background-color: @green;
+    color: @black;
+
+    &:hover {
+      background-color: lighten(@green, 10%);
+      color: @black;
+    }
+
+    &:focus {
+      background-color: @green;
+      color: @black;
+    }
+  }
 }

@@ -161,19 +161,6 @@ export default function Configuration(props) {
             </Button>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row columns={1}>
-          <Grid.Column>
-            <h1>Configuración actual</h1>
-            {configurations.length ? (
-              <ConfigurationView
-                configurations={configurations}
-                onRemoveConfiguration={onRemoveConfiguration}
-              />
-            ) : (
-              <span>No hay configuración</span>
-            )}
-          </Grid.Column>
-        </Grid.Row>
       </Grid>
     </Container>
   );

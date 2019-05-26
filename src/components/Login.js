@@ -11,6 +11,7 @@ export default function Login(props) {
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
   const [phoneCode, setPhoneCode] = useState(null);
   const [isSMSSent, setIsSMSSent] = useState(false);
+  const [isChekingAccessCode, setIsChekingAccessCode] = useState(false);
 
   const onLoginSuccess = (user) => props.onLoginSuccess && props.onLoginSuccess(user);
   const onLoginFail = (error) => props.onLoginFail && props.onLoginFail(error);
@@ -37,15 +38,22 @@ export default function Login(props) {
 
     if (IS_PHONE_NUMBER.test(updatedPhone)) {
       setPhoneNumber(updatedPhone);
-      setIsPhoneNumberValid(true);
+      setTimeout(() => setIsPhoneNumberValid(true), 500);
     }
   };
 
   const checkAccessCode = () => {
+    if (!phoneCode) {
+      return;
+    }
+
+    setIsChekingAccessCode(true);
+
     window.confirmationResult
       .confirm(phoneCode)
       .then((result) => onLoginSuccess(result))
-      .catch((error) => onLoginFail(error));
+      .catch((error) => onLoginFail(error))
+      .finally(() => setIsChekingAccessCode(false));
   };
 
   const saveCode = (code) => setPhoneCode(code);
@@ -133,9 +141,14 @@ export default function Login(props) {
                   <Input onChange={(event, { value }) => saveCode(value)} />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
+              <Grid.Row className="app-margin-top-10">
                 <Grid.Column>
-                  <Button size="huge" onClick={checkAccessCode}>
+                  <Button
+                    size="huge"
+                    className="primary"
+                    onClick={checkAccessCode}
+                    disabled={!phoneCode}
+                    loading={isChekingAccessCode}>
                     Verificar código
                   </Button>
                 </Grid.Column>
