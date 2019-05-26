@@ -67,13 +67,13 @@ export default function Login(props) {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Button.Group>
+                  <Button.Group className="scheduler-login-button-group">
                     <Email
                       firebase={props.firebase}
                       onLoginSuccess={onLoginSuccess}
                       onLoginFail={onLoginFail}
                     />
-                    <Button.Or />
+                    <Button.Or className="scheduler-login-button-group-or" />
                     <Button
                       size="massive"
                       onClick={() => setIsMobile(true)}
